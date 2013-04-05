@@ -1,3 +1,8 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
 <%@ include file="/WEB-INF/jsp/include.jsp" %>
 
 <c:url value="/matrix/records" var="recordsUrl"/>
@@ -5,11 +10,9 @@
 <c:url value="/matrix/update" var="editUrl"/>
 <c:url value="/matrix/delete" var="deleteUrl"/>
 
-<html>
-<head>
 <script type='text/javascript' src='<c:url value="/resources/js/customMatrix.js"/>'></script>
 
-	<title>Matrix</title>
+	<title>Matrix Factorization</title>
 	
 	<script type='text/javascript'>
 	$(function() {
@@ -21,7 +24,9 @@
 		loadTable();
 		
 		$('#newBtn').click(function() { 
-			toggleForms('new');
+			// toggleForms('new');
+			$('#createNewTitle').show();
+	 		$('#dimForm').show();
 			toggleCrudButtons('hide');
 		});
 		
@@ -62,11 +67,28 @@
 			toggleForms('hide'); 
 			toggleCrudButtons('show');
 		});
+
+		$('#createDims').click(function() { 
+			$('#dimForm').hide();
+	 		$('#matrixForm').html(matrixForm($('#xDim').val(),$('#yDim').val())); 
+		});
+
+		$('#back2Matrix').live("click",function() { 
+			$('#matrixForm').hide();
+	 		$('#dimForm').show(); 
+		});
+
+		$('#matrixMeta').live("click",function() { 
+			$('#matrixForm').hide();
+	 		$('#newForm').show(); 
+		});
+
 	});
 	</script>
 </head>
 
 <body>
+	<div class="container">
 	<h1 id='banner'>Matrix Factorization</h1>
 	<hr/>
 	
@@ -74,7 +96,7 @@
 		<caption></caption>
 		<thead>
 			<tr>
-				<th></th>
+				<!-- <th></th> -->
 				<th>Matrix</th>
 				<th>Knowledge Base</th>
 				<th>Inferred</th>
@@ -88,16 +110,28 @@
 	
 	<div id='controlBar'>
 		<input type='button' value='New' id='newBtn' />
-		<input type='button' value='Delete' id='deleteBtn' />
+<!-- 		<input type='button' value='Delete' id='deleteBtn' />
 		<input type='button' value='Edit' id='editBtn' />
-		<input type='button' value='Reload' id='reloadBtn' />
+		<input type='button' value='Reload' id='reloadBtn' /> -->
 	</div>
-	
+	<div id="createNewTitle">
+		<legend>Create New Matrix</legend>
+	</div>
+	<div id='dimForm'>
+		<form>
+  			<fieldset>
+				<label for='xDim'>X Dim</label><input type='number' id='xDim'/><br/>
+				<label for='yDim'>Y Dim</label><input type='number' id='yDim'/><br/>
+  			</fieldset>
+			<input type='button' value='Next' id='createDims'/>
+		</form>
+	</div>
+	<div id="matrixForm">
+	</div>
 	<div id='newForm'>
 		<form>
   			<fieldset>
-				<legend>Create New Matrix</legend>
-				<label for='newMatrix'>Matrix</label><input type='text' id='newMatrix'/><br/>
+				<label for='newMatrix'>Name</label><input type='text' id='newMatrix'/><br/>
 				<label for='newSteps'>Steps</label><input type='number' id='newSteps'/><br/>
 				<label for='newAlpha'>Alpha</label><input type='number' id='newAlpha'/><br/>
 				<label for='newBeta'>Beta</label><input type='number' id='newBeta'/><br/>
@@ -121,6 +155,6 @@
 			<input type='submit' value='Submit'/>
 		</form>
 	</div>
-	
+	</div>
 </body>
 </html>

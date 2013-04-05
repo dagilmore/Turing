@@ -42,29 +42,27 @@ public class MatrixController {
 	public @ResponseBody Matrix get(@RequestBody Matrix matrix) {
 		return service.read(matrix);
 	}
-			//@RequestParam double[][] knowledgeBase,
+
 	@RequestMapping(value="/create", method=RequestMethod.POST)
 	public @ResponseBody Matrix create(
-			@RequestParam String name,
-			@RequestParam int steps,
-			@RequestParam double alpha,
-			@RequestParam double beta,
-			@RequestParam int k){
+			@RequestParam(value="name", required=false) String name,
+			@RequestParam(value="knowledgeBase", required=false) double[][] knowledgeBase,
+			@RequestParam(value="steps", required=false) int steps,
+			@RequestParam(value="alpha", required=false) double alpha,
+			@RequestParam(value="beta", required=false) double beta,
+			@RequestParam(value="k", required=false) int k){
+
+		// double[][] knowledgeBase = {
+	 // 		{5.0, 3.0, 0.0, 1.0},
+	 //  		{4.0, 0.0, 0.0, 5.0},
+	 //  		{1.0, 5.0, 3.0, 0.0},	
+		// };
 
 		ProbabilisticMatrixFactorization pmf = new ProbabilisticMatrixFactorization();
 		pmf.setSteps(steps);
 		pmf.setAlpha(alpha);
 		pmf.setBeta(beta);
 		pmf.setK(k);
-
-		double[][] knowledgeBase = {
-	 		{5.0, 3.0, 0.0, 1.0, 5.0, 3.0, 0.0},
-	  		{4.0, 0.0, 0.0, 5.0, 3.0, 0.0, 1.0},
-	  		{1.0, 5.0, 3.0, 0.0, 1.0, 0.0, 5.0},	
-	  		{5.0, 3.0, 0.0, 1.0, 0.0, 0.0, 4.0},
-	 		{5.0, 3.0, 0.0, 1.0, 5.0, 3.0, 0.0},	
-	  		{5.0, 3.0, 0.0, 1.0, 0.0, 0.0, 4.0}
-		};
 
 		Matrix newMatrix = new Matrix();
 		newMatrix.setId(name);
@@ -79,15 +77,12 @@ public class MatrixController {
 	
 	@RequestMapping(value="/update", method=RequestMethod.POST)
 	public @ResponseBody Matrix update(
-			@RequestParam String id,
 			@RequestParam int steps,
 			@RequestParam double alpha,
 			@RequestParam double beta,
 			@RequestParam int k) {
 
-		// MatrixRepository matrixRepository = new MatrixRepository();
-
-		Matrix existingMatrix = new Matrix();  //matrixRepository.findById(name);
+		Matrix existingMatrix = new Matrix();
 		existingMatrix.setSteps(steps);
 		existingMatrix.setAlpha(alpha);
 		existingMatrix.setBeta(beta);

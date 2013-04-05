@@ -1,9 +1,4 @@
-body {
-	font-family: Arial, sans-serif;
-	width: 1200px;
-	margin: auto;
-}
-
+/*
 h1, hr {
 	margin: 0px;
 	padding: 0px;
@@ -18,19 +13,19 @@ h1, hr {
 
 #controlBar {
 	padding-top: 3px;	
-}
+} */
 
 table {
-	border: 1px solid;
+	/*border: 1px solid;*/
 	width: 100%;
 	border-collapse: collapse;
 }
 
 tr, td, th {
-	border: 1px solid;
+	/*border: 1px solid;*/
 	text-align: left;
 	padding: 5px;
-/*	max-width: 200px;*/
+	max-width: 200px;
 	overflow: hidden;
 }
 
@@ -61,4 +56,25 @@ fieldset label {
 	float: left;
 	width: 80px;
 	text-align: right;
+}
+
+#matrixTable table {
+	width: 100%;
+	border-collapse: collapse;
+}
+#matrixTable tr,#matrixTable th {
+	text-align: left;
+	padding: 5px;
+	overflow: hidden;
+}
+.matrixInput{
+	width:25px;
+}
+
+.matrixInput td{
+	width:20px !important;
+}
+.matrixInput form input{
+	width: inherit !important;
+	border: none !important;
 }

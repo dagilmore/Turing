@@ -238,6 +238,19 @@
       <version>3.1.1</version>
     </dependency>
     
+    <!-- Vaadin -->
+	<dependency>
+	    <groupId>com.vaadin</groupId>
+	    <artifactId>vaadin</artifactId>
+	    <version>6.8.3</version>
+	</dependency>
+
+	<dependency>
+	   <groupId>org.dellroad</groupId>
+	   <artifactId>dellroad-stuff-vaadin</artifactId>
+	   <version>1.0.594</version>
+	</dependency>
+
   </dependencies>
   
   <build>
@@ -300,6 +313,12 @@
 		<id>jboss</id>
 		<name>JBoss repository</name>
 		<url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+	</repository>
+
+	<!-- Vaadin Add-on Support -->
+	<repository>
+	   <id>vaadin-addons</id>
+	   <url>http://maven.vaadin.com/vaadin-addons</url>
 	</repository>
 	
   </repositories>

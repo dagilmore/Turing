@@ -13,7 +13,7 @@ function loadTable() {
  		
  		for (var i=0; i<response.matrices.length; i++) {
 			var row = '<tr>';
-			row += '<td><input type="radio" name="index" id="index" value="'+i+'"></td>';
+			// row += '<td><input type="radio" name="index" id="index" value="'+i+'"></td>';
 			row += '<td>' + response.matrices[i].id + '</td>';
 			row += '<td>' + matrixPrettyPrint(response.matrices[i].knowledgeBase) + '</div></td>';
 			row += '<td>' + matrixPrettyPrint(response.matrices[i].inferred) + '</td>';
@@ -30,8 +30,11 @@ function loadTable() {
 }
 
 function submitNewRecord() {
+	// var kb = matrixRequest();
+	// console.log(kb);
 	$.post(urlHolder.add, {
 			name: $('#newMatrix').val(),
+			// knowledgeBase: kb,
 			steps: $('#newSteps').val(),
 			alpha: $('#newAlpha').val(),
 			beta: $('#newBeta').val(),
@@ -121,6 +124,8 @@ function resetEditForm() {
 
 function toggleForms(id) {
 	if (id == 'hide') {
+		$('#createNewTitle').hide();
+		$('#dimForm').hide();
 		$('#newForm').hide();
 		$('#editForm').hide();
 		
@@ -151,6 +156,23 @@ function toggleCrudButtons(id) {
 	}
 }
 
+function matrixForm(x,y) {
+	var ret = "<table class='matrixInput'>";
+	for (var i=0; i<y; i++) {
+		var row = "<tr class='matrixInput'>";
+		for (var j=0;j<x;j++) {
+			row += "<td class='matrixInput'><input class='matrixInput' type='number' id='"
+			row += i + '_' + j;
+			row += "'/><br/></td>"
+		}
+	ret += row;
+	}
+	ret += "</table><input type='button' value='Back' id='back2Matrix'/>";
+	ret += "<input type='button' value='Next' id='matrixMeta'/></form>";
+
+	return ret;
+}
+
 function matrixPrettyPrint(matrix) {
 
 	var ret = "<table>";
@@ -164,6 +186,21 @@ function matrixPrettyPrint(matrix) {
 	}
 	ret += '</table>';
 	return ret;
-	// return matrix[1][1];
+
 }
 
+function matrixRequest() {
+	var ret = [];
+	var tmp = "";
+	console.log($('#xDim').val());
+	for (var i=0; i < $('#xDim').val(); i++) {
+		var row = [];
+		for (var j=0;j < $('#yDim').val();j++) {
+			tmp = '#' + i + '_' + j;
+			row.push(Number($(tmp).val()));
+		}
+		ret.push(row);
+	}
+	return JSON.stringify(ret);
+
+}
