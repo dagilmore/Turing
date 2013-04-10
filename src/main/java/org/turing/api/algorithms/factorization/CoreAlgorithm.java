@@ -1,4 +1,3 @@
-
 /*
  * Single Threaded Matrix Factorization core algorithm
  */
